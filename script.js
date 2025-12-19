@@ -24,3 +24,4 @@ db.collection("comments").orderBy("timestamp").onSnapshot((snapshot) => {
         commentList.appendChild(li);
     });
 });
+
