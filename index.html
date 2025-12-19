@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello 😄</title>
+  <link rel="stylesheet" href="style.css">
 
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- Firebase SDK v9 modular -->
+  <script type="module" src="script.js"></script>
 </head>
-
 <body>
 
   <div class="container">
-    <h1>Hello 😊</h1>
+    <h1>Hello 😄</h1>
 
     <div class="comment-section">
       <h2>Comments</h2>
@@ -24,10 +21,9 @@
 
       <input type="text" id="commentInput" placeholder="Write a comment..." />
       <br><br>
-      <button onclick="addComment()">Post</button>
+      <button id="postBtn">Post</button>
     </div>
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>
