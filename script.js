@@ -1,8 +1,8 @@
-// script.js (type="module")
+// script.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// 🔥 NEW FIREBASE CONFIG
+// Firebase Config (new project)
 const firebaseConfig = {
   apiKey: "AIzaSyA3ng9GleOePwaF8azE3NLEsVvmiQ0sb4E",
   authDomain: "hello-51ac3.firebaseapp.com",
@@ -13,20 +13,15 @@ const firebaseConfig = {
   measurementId: "G-H87TJ2QSXY"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.userName = "Anonymous";
 
 window.onload = () => {
+  // Developer name already added in HTML
 
-  // Developer Name Top-left
-  const devDiv = document.createElement("div");
-  devDiv.id = "devName";
-  devDiv.innerText = "Developer – Rachit";
-  document.body.appendChild(devDiv);
-
+  // Popup for name
   showNamePopup();
 
   const commentList = document.getElementById("commentList");
@@ -35,10 +30,9 @@ window.onload = () => {
 
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FF8C33"];
 
-  // Add Comment Function
   postBtn.addEventListener("click", async () => {
     const text = commentInput.value.trim();
-    if (text === "") { alert("Please write a comment first!"); return; }
+    if (!text) return alert("Please write a comment first!");
 
     await addDoc(collection(db, "comments"), {
       name: window.userName,
@@ -62,17 +56,14 @@ window.onload = () => {
 
       li.innerHTML = `
         <span class="comment-name" style="color:${color}">${data.name}</span>
-        <br>
-        ${data.text}
+        <br>${data.text}
         <div style="font-size:12px;color:gray;">${time}</div>
       `;
       commentList.appendChild(li);
     });
   });
-
 };
 
-// Popup Name
 function showNamePopup() {
   const popup = document.createElement("div");
   popup.id = "namePopup";
@@ -86,8 +77,9 @@ function showNamePopup() {
 
   document.getElementById("submitNameBtn").addEventListener("click", () => {
     const input = document.getElementById("popupNameInput").value.trim();
-    window.userName = input !== "" ? input : "Anonymous";
+    window.userName = input || "Anonymous";
     popup.remove();
   });
 }
+
 
