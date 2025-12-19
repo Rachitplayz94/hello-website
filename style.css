@@ -22,7 +22,7 @@ body {
 .container {
   text-align: center;
   background-color: #ffffff;
-  padding: 30px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   width: 90%;
@@ -32,26 +32,26 @@ body {
 h1 {
   font-size: 48px;
   color: #3333cc;
+  word-break: break-word;
 }
 
 .comment-section {
   margin-top: 20px;
 }
 
-input[type="text"] {
+input[type="text"], button {
   padding: 10px;
-  width: 70%;
-  margin: 5px 2%;
+  width: 100%;
+  margin-top: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 button {
-  padding: 10px 15px;
-  border: none;
   background-color: #3333cc;
   color: white;
-  border-radius: 5px;
+  border: none;
   cursor: pointer;
 }
 
@@ -74,11 +74,13 @@ li {
   padding: 10px;
   border-radius: 5px;
   text-align: left;
+  word-break: break-word;
 }
 
 .comment-name {
   font-weight: bold;
 }
+
 #namePopup {
   position: fixed;
   top: 50%;
@@ -90,17 +92,16 @@ li {
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
   text-align: center;
   z-index: 1000;
+  width: 90%;
+  max-width: 400px;
 }
 
-#namePopup input {
-  padding: 10px;
-  width: 80%;
+#namePopup input, #namePopup button {
+  width: 100%;
   margin-top: 10px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
-#namePopup button {
-  margin-top: 10px;
-  padding: 10px 20px;
-}
