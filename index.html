@@ -11,7 +11,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
     <script>
-      // Firebase Config
       const firebaseConfig = {
         apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
         authDomain: "hello-website-d5502.firebaseapp.com",
@@ -21,25 +20,36 @@
         appId: "1:887800679372:web:78c74ebdabb1e076966b69"
       };
 
-      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
+
+      // Prompt user for name on page load
+      let userName = prompt("Enter your name:", "Rachit");
+      if(!userName) userName = "Anonymous";
+
+      // Show your name in corner
+      window.onload = () => {
+          const nameDiv = document.createElement("div");
+          nameDiv.id = "myNameFlex";
+          nameDiv.textContent = userName;
+          document.body.appendChild(nameDiv);
+      };
     </script>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Hello 😄</h1>
+<div class="container">
+    <h1>Hello 😄</h1>
 
-        <div class="comment-section">
-            <h2>Comments</h2>
-            <input type="text" id="commentInput" placeholder="Write a comment...">
-            <button onclick="addComment()">Add Comment</button>
+    <div class="comment-section">
+        <h2>Comments</h2>
+        <input type="text" id="commentInput" placeholder="Write a comment...">
+        <button onclick="addComment()">Add Comment</button>
 
-            <ul id="commentList"></ul>
-        </div>
+        <ul id="commentList"></ul>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
