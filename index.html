@@ -7,59 +7,28 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Firebase SDK (Compat) -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
-    authDomain: "hello-website-d5502.firebaseapp.com",
-    projectId: "hello-website-d5502",
-    storageBucket: "hello-website-d5502.appspot.com",
-    messagingSenderId: "887800679372",
-    appId: "1:887800679372:web:78c74ebdabb1e076966b69"
-  };
+  <div class="container">
+    <h1>Hello Website</h1>
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+    <div class="comment-section">
+      <h2>Comments</h2>
 
-  window.userName = "Anonymous";
+      <ul id="commentList"></ul>
 
-  window.onload = () => {
-    const devDiv = document.createElement("div");
-    devDiv.id = "devName";
-    devDiv.innerText = "Developer – Rachit";
-    document.body.appendChild(devDiv);
-    showNamePopup();
-  };
+      <input type="text" id="commentInput" placeholder="Write a comment..." />
+      <br><br>
+      <button onclick="addComment()">Post</button>
+    </div>
+  </div>
 
-  function showNamePopup() {
-    const popup = document.createElement("div");
-    popup.id = "namePopup";
-    popup.innerHTML = `
-      <h2>Enter Your Name</h2>
-      <input type="text" id="popupNameInput" placeholder="Your Name" />
-      <button onclick="submitName()">Submit</button>
-    `;
-    document.body.appendChild(popup);
-  }
-
-  function submitName() {
-    const input = document.getElementById("popupNameInput").value.trim();
-    window.userName = input !== "" ? input : "Anonymous";
-
-    document.getElementById("namePopup").remove();
-
-    db.collection("visitors").add({
-      name: window.userName,
-      time: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  }
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
+
