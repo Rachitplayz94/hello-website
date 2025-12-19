@@ -1,118 +1,108 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
 }
 
 #devName {
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #3333cc;
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3333cc;
 }
 
 .container {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    width: 90%;
-    max-width: 500px;
+  text-align: center;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
 }
 
 h1 {
-    font-size: 48px;
-    color: #3333cc;
+  font-size: 48px;
+  color: #3333cc;
 }
 
 .comment-section {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 input[type="text"] {
-    padding: 10px;
-    width: 70%;
-    margin: 5px 2%;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  padding: 10px;
+  width: 70%;
+  margin: 5px 2%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 button {
-    padding: 10px 15px;
-    border: none;
-    background-color: #3333cc;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  background-color: #3333cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #000099;
+  background-color: #000099;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-    max-height: 250px; /* scrollable */
-    overflow-y: auto;
-    border-top: 1px solid #ccc;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  border-top: 1px solid #ccc;
 }
 
 li {
-    background-color: #f2f2f2;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: left;
+  background-color: #f2f2f2;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
 }
 
 .comment-name {
-    font-weight: bold;
-    color: #3333cc;
+  font-weight: bold;
 }
 
-/* Popup styling */
+/* Popup */
 #namePopup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    text-align: center;
-    z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 1000;
 }
 
 #namePopup input {
-    padding: 10px;
-    width: 80%;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  padding: 10px;
+  width: 80%;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 #namePopup button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    background-color: #3333cc;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#namePopup button:hover {
-    background-color: #000099;
+  margin-top: 10px;
+  padding: 10px 20px;
 }
