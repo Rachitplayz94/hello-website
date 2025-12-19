@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Website</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello Website</title>
+  <link rel="stylesheet" href="style.css">
 
-    <!-- Firebase SDK (Compat Version) -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- Firebase SDK (Compat Version) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
-        authDomain: "hello-website-d5502.firebaseapp.com",
-        projectId: "hello-website-d5502",
-        storageBucket: "hello-website-d5502.appspot.com",
-        messagingSenderId: "887800679372",
-        appId: "1:887800679372:web:78c74ebdabb1e076966b69"
-      };
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
+      authDomain: "hello-website-d5502.firebaseapp.com",
+      projectId: "hello-website-d5502",
+      storageBucket: "hello-website-d5502.appspot.com",
+      messagingSenderId: "887800679372",
+      appId: "1:887800679372:web:78c74ebdabb1e076966b69"
+    };
 
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-      // Prompt user for name on page load
-      let userName = prompt("Enter your name:", "Rachit");
-      if(!userName) userName = "Anonymous";
+    // Show Developer Name Top-Left
+    window.onload = () => {
+      const devDiv = document.createElement("div");
+      devDiv.id = "devName";
+      devDiv.textContent = "Developer – Rachit";
+      document.body.appendChild(devDiv);
 
-      // Show your name in corner
-      window.onload = () => {
-          const nameDiv = document.createElement("div");
-          nameDiv.id = "myNameFlex";
-          nameDiv.textContent = userName;
-          document.body.appendChild(nameDiv);
-      };
-    </script>
+      // Show popup to get username
+      showNamePopup();
+    };
+
+    let userName = "Anonymous";
+
+    function showNamePopup() {
+      const popup = document.createElement("div");
+      popup.id = "namePopup";
+      popup.innerHTML = `
+        <h2>Enter Your Name</h2>
+        <input type="text" id="popupNameInput" placeholder="Your Name">
+        <button onclick="submitName()">Submit</button>
+      `;
+      document.body.appendChild(popup);
+    }
+
+    function submitName() {
+      const input = document.getElementById("popupNameInput").value.trim();
+      userName = input !== "" ? input : "Anonymous";
+      document.getElementById("namePopup").remove();
+    }
+  </script>
 </head>
 <body>
 
