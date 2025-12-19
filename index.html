@@ -23,18 +23,17 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Show Developer Name Top-Left
+    // Developer Name Top-Left
     window.onload = () => {
       const devDiv = document.createElement("div");
       devDiv.id = "devName";
       devDiv.textContent = "Developer – Rachit";
       document.body.appendChild(devDiv);
 
-      // Show popup to get username
       showNamePopup();
     };
 
-    let userName = "Anonymous";
+    window.userName = "Anonymous"; // global variable
 
     function showNamePopup() {
       const popup = document.createElement("div");
@@ -49,25 +48,5 @@
 
     function submitName() {
       const input = document.getElementById("popupNameInput").value.trim();
-      userName = input !== "" ? input : "Anonymous";
-      document.getElementById("namePopup").remove();
-    }
-  </script>
-</head>
-<body>
-
-<div class="container">
-    <h1>Hello 😄</h1>
-
-    <div class="comment-section">
-        <h2>Comments</h2>
-        <input type="text" id="commentInput" placeholder="Write a comment...">
-        <button onclick="addComment()">Add Comment</button>
-
-        <ul id="commentList"></ul>
-    </div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+      window.userName = input !== "" ? input : "Anonymous";
+      document.getElementBy
