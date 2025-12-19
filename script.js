@@ -8,6 +8,7 @@ const firebaseConfig = {
   appId: "1:887800679372:web:78c74ebdabb1e076966b69"
 };
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
@@ -15,7 +16,7 @@ window.userName = "Anonymous";
 
 window.onload = () => {
 
-  // Developer name
+  // Developer name (top-left)
   const devDiv = document.createElement("div");
   devDiv.id = "devName";
   devDiv.innerText = "Developer – Rachit";
@@ -28,6 +29,7 @@ window.onload = () => {
 
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FF8C33"];
 
+  // Add comment
   window.addComment = function () {
     const text = commentInput.value.trim();
 
@@ -45,6 +47,7 @@ window.onload = () => {
     commentInput.value = "";
   };
 
+  // Real-time comments
   db.collection("comments")
     .orderBy("timestamp")
     .onSnapshot(snapshot => {
@@ -58,15 +61,21 @@ window.onload = () => {
           ? data.timestamp.toDate().toLocaleString()
           : "";
 
-        li.innerHTML = `<span class="comment-name" style="color:${color}">
-          ${data.name}</span> (${time}): ${data.text}`;
+        li.innerHTML = `
+          <span class="comment-name" style="color:${color}">
+            ${data.name}
+          </span>
+          <br>
+          ${data.text}
+          <div style="font-size:12px;color:gray;">${time}</div>
+        `;
 
         commentList.appendChild(li);
       });
     });
 };
 
-// Popup
+// Popup for name
 function showNamePopup() {
   const popup = document.createElement("div");
   popup.id = "namePopup";
