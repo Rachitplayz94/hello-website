@@ -10,10 +10,10 @@ body {
     position: relative;
 }
 
-#myNameFlex {
+#devName {
     position: fixed;
     top: 10px;
-    right: 20px;
+    left: 20px;
     font-weight: bold;
     font-size: 18px;
     color: #3333cc;
@@ -79,4 +79,40 @@ li {
 .comment-name {
     font-weight: bold;
     color: #3333cc;
+}
+
+/* Popup styling */
+#namePopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    text-align: center;
+    z-index: 1000;
+}
+
+#namePopup input {
+    padding: 10px;
+    width: 80%;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#namePopup button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #3333cc;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#namePopup button:hover {
+    background-color: #000099;
 }
