@@ -6,7 +6,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    position: relative;
+}
+
+#myNameFlex {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #3333cc;
 }
 
 .container {
@@ -15,6 +25,8 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 500px;
 }
 
 h1 {
@@ -23,12 +35,13 @@ h1 {
 }
 
 .comment-section {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 input[type="text"] {
     padding: 10px;
-    width: 250px;
+    width: 70%;
+    margin: 5px 2%;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
@@ -50,6 +63,9 @@ ul {
     list-style: none;
     padding: 0;
     margin-top: 20px;
+    max-height: 250px; /* scrollable */
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
 }
 
 li {
@@ -58,4 +74,9 @@ li {
     padding: 10px;
     border-radius: 5px;
     text-align: left;
+}
+
+.comment-name {
+    font-weight: bold;
+    color: #3333cc;
 }
