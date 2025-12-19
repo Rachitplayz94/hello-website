@@ -79,8 +79,6 @@ li {
 .comment-name {
   font-weight: bold;
 }
-
-/* Popup */
 #namePopup {
   position: fixed;
   top: 50%;
