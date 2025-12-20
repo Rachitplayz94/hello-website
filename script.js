@@ -5,24 +5,39 @@ const firebaseConfig = {
   projectId: "hello-51ac3",
   storageBucket: "hello-51ac3.appspot.com",
   messagingSenderId: "625297281616",
-  appId: "1:625297281616:web:923165fea1873f9d633755",
-  measurementId: "G-H87TJ2QSXY"
+  appId: "1:625297281616:web:923165fea1873f9d633755"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Developer Name
+// ==========================
+// Developer Name + Logo (JS)
+// ==========================
 window.onload = () => {
   const devDiv = document.createElement("div");
   devDiv.id = "devName";
-  devDiv.textContent = "Developer – Rachit";
+
+  const logo = document.createElement("img");
+  logo.src = "logo.png";   // root folder se
+  logo.alt = "Logo";
+  logo.style.width = "32px";
+  logo.style.height = "32px";
+  logo.style.marginRight = "8px";
+
+  const text = document.createElement("span");
+  text.textContent = "Hello 😄";
+
+  devDiv.appendChild(logo);
+  devDiv.appendChild(text);
   document.body.appendChild(devDiv);
 
   showNamePopup();
 };
 
-// Global user name
+// ==========================
+// Username Popup
+// ==========================
 window.userName = "Anonymous";
 
 function showNamePopup() {
@@ -42,61 +57,58 @@ function submitName() {
   document.getElementById("namePopup").remove();
 }
 
+// ==========================
 // Comment System
+// ==========================
 const commentList = document.getElementById("commentList");
 const commentInput = document.getElementById("commentInput");
-const submitBtn = document.getElementById("submitCommentBtn");
 const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FF8C33"];
 
 function addComment() {
-  const commentText = commentInput.value.trim();
-  if(commentText !== "") {
-    db.collection("comments").add({
-      name: window.userName || "Anonymous",
-      text: commentText,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    commentInput.value = "";
-  } else {
-    alert("Please write a comment first!");
-  }
+  const text = commentInput.value.trim();
+  if (!text) return alert("Write something!");
+
+  db.collection("comments").add({
+    name: window.userName,
+    text: text,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  commentInput.value = "";
 }
 
-// Real-time listener
-db.collection("comments").orderBy("timestamp").onSnapshot((snapshot) => {
+// Realtime comments
+db.collection("comments").orderBy("timestamp").onSnapshot(snapshot => {
   commentList.innerHTML = "";
   snapshot.forEach(doc => {
-    const data = doc.data();
+    const d = doc.data();
     const li = document.createElement("li");
-    const color = colors[data.name.length % colors.length];
+    const color = colors[d.name.length % colors.length];
+    const time = d.timestamp ? d.timestamp.toDate().toLocaleString() : "";
 
-    // Timestamp below comment
-    let time = data.timestamp ? data.timestamp.toDate().toLocaleString() : "";
-    li.innerHTML = `<span class="comment-name" style="color:${color}">${data.name}</span>: ${data.text}<div class="comment-time" style="font-size:12px;color:#555;margin-top:4px;">${time}</div>`;
+    li.innerHTML = `
+      <span class="comment-name" style="color:${color}">${d.name}</span>: ${d.text}
+      <div style="font-size:12px;color:#555;margin-top:4px">${time}</div>
+    `;
     commentList.appendChild(li);
   });
 
-  // Scroll to bottom so input stays below latest comment
   commentList.scrollTop = commentList.scrollHeight;
 });
 
-// Auto-delete old comments (older than 24 hours)
+// ==========================
+// Auto delete after 24 hours
+// ==========================
 function deleteOldComments() {
-  const now = new Date();
-  const cutoff = new Date(now.getTime() - 1*24*60*60*1000); // 24 hours
+  const cutoff = new Date(Date.now() - 24*60*60*1000);
 
   db.collection("comments")
     .where("timestamp", "<", cutoff)
     .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        db.collection("comments").doc(doc.id).delete()
-          .then(() => console.log("Deleted old comment:", doc.id))
-          .catch(err => console.error(err));
-      });
-    })
-    .catch(err => console.error(err));
+    .then(snap => {
+      snap.forEach(doc => db.collection("comments").doc(doc.id).delete());
+    });
 }
 
-// Call once a day
-setInterval(deleteOldComments, 24*60*60*1000); // 24 hours
+setInterval(deleteOldComments, 24*60*60*1000);
+
