@@ -1,133 +1,110 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f8ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  position: relative;
-}
-
-#devName {
+/* =========================
+   🔄 LOADER
+========================= */
+.loader {
   position: fixed;
-  top: 10px;
-  left: 20px;
-  font-weight: bold;
-  font-size: 18px;
-  color: #3333cc;
-}
-
-.container {
-  text-align: center;
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  width: 90%;
-  max-width: 500px;
-}
-
-h1 {
-  font-size: 48px;
-  color: #3333cc;
-}
-
-.comment-section {
-  margin-top: 20px;
+  inset: 0;
+  background: #f0f8ff;
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-input[type="text"] {
-  padding: 10px;
-  width: 70%;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  order: 1;
-}
-
-button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #3333cc;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 5px;
-  order: 2;
-}
-
-button:hover {
-  background-color: #000099;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-  max-height: 250px;
-  overflow-y: auto;
-  border-top: 1px solid #ccc;
-  width: 100%;
-  order: 0;
-}
-
-li {
-  background-color: #f2f2f2;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: left;
-}
-
-.comment-name {
+  justify-content: center;
+  font-size: 22px;
   font-weight: bold;
+  color: #3333cc;
+  z-index: 2000;
 }
 
-.comment-time {
-  font-size: 11px;
-  color: gray;
-  margin-top: 3px;
-}
-
-/* Popup */
-#namePopup {
+/* =========================
+   🔐 LOGIN BOX
+========================= */
+.login-box {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffffff;
+  background: white;
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
   text-align: center;
-  z-index: 1000;
+  z-index: 1500;
+  display: none;
+  width: 90%;
+  max-width: 320px;
 }
 
-#namePopup input {
+.login-box h2 {
+  margin-bottom: 15px;
+  color: #3333cc;
+}
+
+.login-box input {
+  width: 90%;
   padding: 10px;
-  width: 80%;
   margin-top: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-#namePopup button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #3333cc;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+.login-box button {
+  margin-top: 15px;
+  width: 100%;
 }
 
-#namePopup button:hover {
-  background-color: #000099;
+#loginMsg {
+  margin-top: 10px;
+  font-size: 14px;
+  color: red;
 }
+
+/* =========================
+   🌙 DARK MODE
+========================= */
+body.dark {
+  background-color: #121212;
+}
+
+body.dark .container {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark h1 {
+  color: #66aaff;
+}
+
+body.dark li {
+  background-color: #2a2a2a;
+}
+
+body.dark input,
+body.dark .login-box input {
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #555;
+}
+
+body.dark button {
+  background-color: #5555ff;
+}
+
+body.dark button:hover {
+  background-color: #7777ff;
+}
+
+/* =========================
+   🌙 THEME BUTTON
+========================= */
+.theme-btn {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  z-index: 1600;
+}
+
 
 
