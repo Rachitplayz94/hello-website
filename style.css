@@ -135,6 +135,58 @@ body.dark button:hover {
   height: 45px;
 }
 
+/* Hamburger Menu */
+.menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 1700;
+  user-select: none;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: left 0.3s;
+  z-index: 1600;
+}
+
+.side-menu.show {
+  left: 0;
+}
+
+.side-menu button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #3333cc;
+  color: white;
+}
+
+body.dark .side-menu {
+  background-color: #1e1e1e;
+}
+
+body.dark .side-menu button {
+  background-color: #5555ff;
+}
+
+body.dark .side-menu button:hover {
+  background-color: #7777ff;
+}
+
 
 
 
