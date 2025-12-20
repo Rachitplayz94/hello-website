@@ -101,7 +101,30 @@ function loadComments() {
       snapshot.forEach(doc => {
         const d = doc.data();
         const li = document.createElement("li");
-        li.innerHTML = `<b>${d.name}</b>: ${d.text}`;
+
+        // Calculate "time ago"
+        let timeText = "";
+        if (d.timestamp) {
+          const now = new Date();
+          const commentTime = d.timestamp.toDate();
+          const diffMs = now - commentTime;
+          const diffMin = Math.floor(diffMs / 60000);
+
+          if (diffMin < 60) {
+            timeText = `${diffMin} min ago`;
+          } else if (diffMin < 1440) {
+            const hr = Math.floor(diffMin / 60);
+            timeText = `${hr} hr ago`;
+          } else {
+            const days = Math.floor(diffMin / 1440);
+            timeText = `${days} day${days>1?'s':''} ago`;
+          }
+        }
+
+        li.innerHTML = `
+          <b>${d.name}</b>: ${d.text}
+          <div style="font-size:11px; color:gray; margin-top:2px;">${timeText}</div>
+        `;
         list.appendChild(li);
       });
 
@@ -144,6 +167,7 @@ logoutBtn.onclick = () => {
   localStorage.removeItem("username");
   location.reload();
 };
+
 
 
 
