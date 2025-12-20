@@ -1,45 +1,51 @@
-.comment-section {
-    display: flex;
-    flex-direction: column;
+body {
+  background: #eee;
+  font-family: Arial, sans-serif;
 }
 
-.comment-input-area {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+.box {
+  width: 90%;
+  max-width: 420px;
+  margin: 30px auto;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
 }
 
-.comment-input-area input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+h2 {
+  text-align: center;
 }
 
-.comment-input-area button {
-    padding: 10px 15px;
-    margin-left: 5px;
-    border: none;
-    background-color: #3333cc;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
 }
 
-.comment-input-area button:hover {
-    background-color: #000099;
+button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  cursor: pointer;
 }
 
-.comment-time {
-    font-size: 12px;
-    color: #555;
-    margin-top: 4px;
+.comments {
+  margin-top: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
 }
 
+.comment {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
 
+.name {
+  font-weight: bold;
+}
 
-
-
-
-
-
+.time {
+  font-size: 11px;
+  color: gray;
+}
