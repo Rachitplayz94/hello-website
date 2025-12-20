@@ -1,60 +1,104 @@
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  orderBy,
-  onSnapshot
-} from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+// Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyA3ng9GleOePwaF8azE3NLEsVvmiQ0sb4E",
-  authDomain: "hello-51ac3.firebaseapp.com",
-  projectId: "hello-51ac3",
-  storageBucket: "hello-51ac3.firebasestorage.app",
-  messagingSenderId: "625297281616",
-  appId: "1:625297281616:web:923165fea1873f9d633755"
+  apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
+  authDomain: "hello-website-d5502.firebaseapp.com",
+  projectId: "hello-website-d5502",
+  storageBucket: "hello-website-d5502.appspot.com",
+  messagingSenderId: "887800679372",
+  appId: "1:887800679372:web:78c74ebdabb1e076966b69"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const ref = collection(db, "comments");
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-window.addComment = async () => {
-  const name = nameInput.value.trim();
-  const text = commentInput.value.trim();
-  if (!name || !text) return;
+window.userName = "Anonymous";
 
-  await addDoc(ref, {
-    name,
-    text,
-    time: serverTimestamp()
-  });
+// On page load
+window.onload = () => {
 
-  commentInput.value = "";
+  // Developer name
+  const devDiv = document.createElement("div");
+  devDiv.id = "devName";
+  devDiv.innerText = "Developer – Rachit";
+  document.body.appendChild(devDiv);
+
+  showNamePopup();
+
+  const commentList = document.getElementById("commentList");
+  const commentInput = document.getElementById("commentInput");
+
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FF8C33"];
+
+  // Add comment
+  window.addComment = function () {
+    const text = commentInput.value.trim();
+
+    if (text === "") {
+      alert("Please write a comment first!");
+      return;
+    }
+
+    db.collection("comments").add({
+      name: window.userName,
+      text: text,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    commentInput.value = "";
+  };
+
+  // Real-time listener
+  db.collection("comments")
+    .orderBy("timestamp")
+    .onSnapshot(snapshot => {
+      commentList.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+
+        const color = colors[data.name.length % colors.length];
+        const time = data.timestamp
+          ? data.timestamp.toDate().toLocaleString()
+          : "";
+
+        li.innerHTML = `
+          <span class="comment-name" style="color:${color}">${data.name}</span>: ${data.text}
+          <div class="comment-time">${time}</div>
+        `;
+        commentList.appendChild(li);
+
+        // Auto-delete after 24 hours
+        const now = new Date().getTime();
+        const msgTime = data.timestamp ? data.timestamp.toDate().getTime() : now;
+        if (now - msgTime > 24*60*60*1000) {
+          doc.ref.delete();
+        }
+      });
+
+      // Scroll to bottom
+      commentList.scrollTop = commentList.scrollHeight;
+    });
 };
 
-const q = query(ref, orderBy("time", "asc"));
+// Popup for name input
+function showNamePopup() {
+  const popup = document.createElement("div");
+  popup.id = "namePopup";
+  popup.innerHTML = `
+    <h2>Enter Your Name</h2>
+    <input type="text" id="popupNameInput" placeholder="Your Name">
+    <br><br>
+    <button onclick="submitName()">Submit</button>
+  `;
+  document.body.appendChild(popup);
+}
 
-onSnapshot(q, snap => {
-  comments.innerHTML = "";
-  snap.forEach(doc => {
-    const d = doc.data();
-    const t = d.time?.toDate().toLocaleString() || "";
-    comments.innerHTML += `
-      <div class="comment">
-        <div class="name">${d.name}</div>
-        <div>${d.text}</div>
-        <div class="time">${t}</div>
-      </div>`;
-  });
-  comments.scrollTop = comments.scrollHeight;
-});
+function submitName() {
+  const input = document.getElementById("popupNameInput").value.trim();
+  window.userName = input !== "" ? input : "Anonymous";
+  document.getElementById("namePopup").remove();
+}
 
 
 
