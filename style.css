@@ -125,22 +125,40 @@ body.dark button:hover {
   background-color: #7777ff;
 }
 
-/* Hamburger Menu */
+/* Hamburger icon */
 .menu-btn {
   position: fixed;
   top: 15px;
   left: 15px;
-  font-size: 28px;
-  cursor: pointer;
   z-index: 1700;
-  user-select: none;
+  cursor: pointer;
 }
 
+.hamburger-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #f0f8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.hamburger-icon span {
+  display: block;
+  height: 3px;
+  background-color: #3333cc;
+  border-radius: 2px;
+}
+
+/* Side Menu */
 .side-menu {
   position: fixed;
   top: 0;
-  left: -220px;
-  width: 220px;
+  left: -240px; /* hidden initially */
+  width: 240px;
   height: 100%;
   background-color: #ffffff;
   box-shadow: 2px 0 10px rgba(0,0,0,0.3);
@@ -156,6 +174,20 @@ body.dark button:hover {
   left: 0;
 }
 
+.side-menu .menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.side-menu .menu-item {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #24292f; /* GitHub text color */
+  cursor: pointer;
+}
+
 .side-menu button {
   padding: 10px;
   border: none;
@@ -169,6 +201,10 @@ body.dark .side-menu {
   background-color: #1e1e1e;
 }
 
+body.dark .side-menu .menu-item {
+  color: white;
+}
+
 body.dark .side-menu button {
   background-color: #5555ff;
 }
@@ -176,6 +212,7 @@ body.dark .side-menu button {
 body.dark .side-menu button:hover {
   background-color: #7777ff;
 }
+
 
 
 
