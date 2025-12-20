@@ -45,6 +45,7 @@ function submitName() {
 // Comment System
 const commentList = document.getElementById("commentList");
 const commentInput = document.getElementById("commentInput");
+const submitBtn = document.getElementById("submitCommentBtn");
 const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FF8C33"];
 
 function addComment() {
@@ -68,19 +69,21 @@ db.collection("comments").orderBy("timestamp").onSnapshot((snapshot) => {
     const data = doc.data();
     const li = document.createElement("li");
     const color = colors[data.name.length % colors.length];
+
+    // Timestamp below comment
     let time = data.timestamp ? data.timestamp.toDate().toLocaleString() : "";
-    li.innerHTML = `<span class="comment-name" style="color:${color}">${data.name}</span> (${time}): ${data.text}`;
+    li.innerHTML = `<span class="comment-name" style="color:${color}">${data.name}</span>: ${data.text}<div class="comment-time" style="font-size:12px;color:#555;margin-top:4px;">${time}</div>`;
     commentList.appendChild(li);
   });
 
-  // Scroll to bottom to see latest comment input
+  // Scroll to bottom so input stays below latest comment
   commentList.scrollTop = commentList.scrollHeight;
 });
 
 // Auto-delete old comments (older than 24 hours)
 function deleteOldComments() {
   const now = new Date();
-  const cutoff = new Date(now.getTime() - 1*24*60*60*1000); // 1 day
+  const cutoff = new Date(now.getTime() - 1*24*60*60*1000); // 24 hours
 
   db.collection("comments")
     .where("timestamp", "<", cutoff)
@@ -97,10 +100,3 @@ function deleteOldComments() {
 
 // Call once a day
 setInterval(deleteOldComments, 24*60*60*1000); // 24 hours
-
-
-
-
-
-
-
