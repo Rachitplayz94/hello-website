@@ -36,6 +36,8 @@ h1 {
 
 .comment-section {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* input + comments below */
 }
 
 input[type="text"] {
@@ -62,10 +64,9 @@ button:hover {
 ul {
     list-style: none;
     padding: 0;
-    margin-top: 20px;
+    margin-top: 10px;
     max-height: 250px;
     overflow-y: auto;
-    border-top: 1px solid #ccc;
 }
 
 li {
@@ -90,31 +91,8 @@ li {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    text-align: center;
-    z-index: 1000;
-}
 
-#namePopup input {
-    padding: 10px;
-    width: 80%;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
 
-#namePopup button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    background-color: #3333cc;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#namePopup button:hover {
-    background-color: #000099;
-}
 
 
 
