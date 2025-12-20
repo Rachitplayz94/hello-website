@@ -2,73 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hello Website</title>
+  <title>Hello 😄</title>
 
-  <!-- ✅ TAB ICON (FAVICON) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 
-  <!-- Firebase SDK (Compat Version) -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "XXXX",
-      appId: "XXXX"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    window.userName = "Anonymous";
-
-    window.onload = () => {
-      const devDiv = document.createElement("div");
-      devDiv.id = "devName";
-      devDiv.textContent = "Developer – Rachit";
-      document.body.appendChild(devDiv);
-      showNamePopup();
-    };
-
-    function showNamePopup() {
-      const popup = document.createElement("div");
-      popup.id = "namePopup";
-      popup.innerHTML = `
-        <h2>Enter Your Name</h2>
-        <input type="text" id="popupNameInput" placeholder="Your Name">
-        <button onclick="submitName()">Submit</button>
-      `;
-      document.body.appendChild(popup);
-    }
-
-    function submitName() {
-      const input = document.getElementById("popupNameInput").value.trim();
-      window.userName = input !== "" ? input : "Anonymous";
-      document.getElementById("namePopup").remove();
-    }
-  </script>
 </head>
-
 <body>
+  <!-- Developer Name top-left -->
+  <div id="devName">Developer – Rachit</div>
+
+  <!-- Main container -->
   <div class="container">
     <h1>Hello 😄</h1>
 
+    <!-- Comment Section -->
     <div class="comment-section">
       <ul id="commentList"></ul>
 
-      <input type="text" id="commentInput" placeholder="Write a comment">
+      <input type="text" id="commentInput" placeholder="Write comment">
       <button onclick="addComment()">Submit</button>
     </div>
+  </div>
+
+  <!-- Name Popup -->
+  <div id="namePopup">
+    <h2>Enter Your Name</h2>
+    <input type="text" id="popupNameInput" placeholder="Your Name">
+    <button onclick="submitName()">Submit</button>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
