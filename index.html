@@ -4,30 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello 😄</title>
-
-  <!-- Google verification meta tag -->
-  <meta name="google-site-verification" content="brNnWcsI0g12e611wdU04XIZsKHT81-TnPxDnFemuQk" />
-
   <link rel="stylesheet" href="style.css">
-  <script type="module" src="script.js"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-
-  <!-- Developer Name -->
-  <div id="devName">Developer – Rachit</div>
-
   <div class="container">
     <h1>Hello 😄</h1>
 
     <div class="comment-section">
-      <h2>Comments</h2>
-
+      <input type="text" id="commentInput" placeholder="Write a comment...">
+      <button onclick="addComment()">Submit</button>
       <ul id="commentList"></ul>
-
-      <input type="text" id="commentInput" placeholder="Write a comment..." />
-      <button id="postBtn">Post</button>
     </div>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
+
+
