@@ -11,72 +11,67 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-window.userName = "Anonymous";
+let userName = "Anonymous";
 
+// Page load
 window.onload = () => {
-
-  // Developer name
-  const devDiv = document.createElement("div");
-  devDiv.id = "devName";
-  devDiv.innerText = "Developer – Rachit";
-  document.body.appendChild(devDiv);
-
   showNamePopup();
+  loadComments();
+};
 
-  const commentList = document.getElementById("commentList");
-  const commentInput = document.getElementById("commentInput");
+// Add comment
+function addComment() {
+  const input = document.getElementById("commentInput");
+  const text = input.value.trim();
 
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FF8C33"];
+  if (text === "") {
+    alert("Write something first!");
+    return;
+  }
 
-  // Add comment
-  window.addComment = function () {
-    const text = commentInput.value.trim();
-    if (text === "") {
-      alert("Please write a comment first!");
-      return;
-    }
+  db.collection("comments").add({
+    name: userName,
+    text: text,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  });
 
-    db.collection("comments").add({
-      name: window.userName,
-      text: text,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
+  input.value = "";
+}
 
-    commentInput.value = "";
-  };
+// Load comments (REAL TIME)
+function loadComments() {
+  const list = document.getElementById("commentList");
 
-  // Real-time listener
   db.collection("comments")
     .orderBy("timestamp")
     .onSnapshot(snapshot => {
-      commentList.innerHTML = "";
+      list.innerHTML = "";
 
       snapshot.forEach(doc => {
         const data = doc.data();
+
         const li = document.createElement("li");
 
-        const color = colors[data.name.length % colors.length];
         const time = data.timestamp
           ? data.timestamp.toDate().toLocaleString()
           : "";
 
-        li.innerHTML = `<span class="comment-name" style="color:${color}">${data.name}</span>: ${data.text}<div class="comment-time">${time}</div>`;
-        commentList.appendChild(li);
+        li.innerHTML = `
+          <div><b>${data.name}</b>: ${data.text}</div>
+          <div style="font-size:12px; color:gray; margin-top:4px;">
+            ${time}
+          </div>
+        `;
 
-        // Auto-delete after 24 hours
-        const now = new Date().getTime();
-        const msgTime = data.timestamp ? data.timestamp.toDate().getTime() : now;
-        if (now - msgTime > 24*60*60*1000) {
-          doc.ref.delete();
-        }
+        list.appendChild(li);
       });
 
-      // Scroll to bottom
-      commentList.scrollTop = commentList.scrollHeight;
+      // auto scroll to bottom
+      list.scrollTop = list.scrollHeight;
     });
-};
+}
 
-// Popup for name input
+// Name popup
 function showNamePopup() {
   const popup = document.createElement("div");
   popup.id = "namePopup";
@@ -90,10 +85,11 @@ function showNamePopup() {
 }
 
 function submitName() {
-  const input = document.getElementById("popupNameInput").value.trim();
-  window.userName = input !== "" ? input : "Anonymous";
+  const val = document.getElementById("popupNameInput").value.trim();
+  userName = val !== "" ? val : "Anonymous";
   document.getElementById("namePopup").remove();
 }
+
 
 
 
