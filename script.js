@@ -99,62 +99,31 @@ function loadComments() {
     });
 }
 
-/* =========================
-   🌙 DARK MODE FIX
-========================= */
-const themeBtn = document.getElementById("themeToggle");
-
-// Load saved theme
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark");
-  themeBtn.innerText = "☀️";
-} else {
-  themeBtn.innerText = "🌙";
-}
-
-// Toggle theme
-themeBtn.onclick = () => {
-  document.body.classList.toggle("dark");
-  if (document.body.classList.contains("dark")) {
-    localStorage.setItem("theme", "dark");
-    themeBtn.innerText = "☀️";
-  } else {
-    localStorage.setItem("theme", "light");
-    themeBtn.innerText = "🌙";
-  }
-};
-
-/* =========================
-   ☰ HAMBURGER MENU + LOGOUT
-========================= */
+/* Hamburger Menu + Dark Mode + Logout */
 function toggleMenu() {
   document.getElementById("sideMenu").classList.toggle("show");
 }
 
 const menuDarkBtn = document.getElementById("menuDarkToggle");
-
-// Sync menu dark mode with body
 menuDarkBtn.onclick = () => {
   document.body.classList.toggle("dark");
   if (document.body.classList.contains("dark")) {
     localStorage.setItem("theme", "dark");
-    themeBtn.innerText = "☀️";
     menuDarkBtn.innerText = "☀️ Dark Mode";
   } else {
     localStorage.setItem("theme", "light");
-    themeBtn.innerText = "🌙";
     menuDarkBtn.innerText = "🌙 Dark Mode";
   }
 };
 
-// Set initial menu dark mode text
-if (document.body.classList.contains("dark")) {
+// Initialize menu dark mode text
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
   menuDarkBtn.innerText = "☀️ Dark Mode";
 } else {
   menuDarkBtn.innerText = "🌙 Dark Mode";
 }
 
-/* LOGOUT BUTTON */
 const logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.onclick = () => {
   localStorage.removeItem("username");
