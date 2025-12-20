@@ -73,14 +73,14 @@ db.collection("comments").orderBy("timestamp").onSnapshot((snapshot) => {
     commentList.appendChild(li);
   });
 
-  // Scroll to bottom so latest comment input is below
+  // Scroll to bottom to see latest comment input
   commentList.scrollTop = commentList.scrollHeight;
 });
 
-// Auto-delete old comments (older than 30 days)
+// Auto-delete old comments (older than 24 hours)
 function deleteOldComments() {
   const now = new Date();
-  const cutoff = new Date(now.getTime() - 30*24*60*60*1000); // 30 days
+  const cutoff = new Date(now.getTime() - 1*24*60*60*1000); // 1 day
 
   db.collection("comments")
     .where("timestamp", "<", cutoff)
@@ -97,6 +97,8 @@ function deleteOldComments() {
 
 // Call once a day
 setInterval(deleteOldComments, 24*60*60*1000); // 24 hours
+
+
 
 
 
