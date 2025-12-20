@@ -72,6 +72,9 @@ db.collection("comments").orderBy("timestamp").onSnapshot((snapshot) => {
     li.innerHTML = `<span class="comment-name" style="color:${color}">${data.name}</span> (${time}): ${data.text}`;
     commentList.appendChild(li);
   });
+
+  // Scroll to bottom so latest comment input is below
+  commentList.scrollTop = commentList.scrollHeight;
 });
 
 // Auto-delete old comments (older than 30 days)
@@ -94,6 +97,8 @@ function deleteOldComments() {
 
 // Call once a day
 setInterval(deleteOldComments, 24*60*60*1000); // 24 hours
+
+
 
 
 
