@@ -73,7 +73,8 @@ async function sha256(text) {
 
 /* Comments */
 function addComment() {
-  const text = commentInput.value.trim();
+  const input = document.getElementById("commentInput");
+  const text = input.value.trim();
   if (!text) return alert("Write something!");
 
   db.collection("comments").add({
@@ -82,20 +83,31 @@ function addComment() {
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   });
 
-  commentInput.value = "";
+  input.value = "";
+
+  const list = document.getElementById("commentList");
+  list.scrollTop = list.scrollHeight;
 }
 
 function loadComments() {
+  const list = document.getElementById("commentList");
+
   db.collection("comments")
     .orderBy("timestamp")
-    .onSnapshot(snap => {
-      commentList.innerHTML = "";
-      snap.forEach(doc => {
+    .onSnapshot(snapshot => {
+      const isAtBottom = list.scrollHeight - list.scrollTop <= list.clientHeight + 50;
+
+      list.innerHTML = "";
+      snapshot.forEach(doc => {
         const d = doc.data();
         const li = document.createElement("li");
         li.innerHTML = `<b>${d.name}</b>: ${d.text}`;
-        commentList.appendChild(li);
+        list.appendChild(li);
       });
+
+      if (isAtBottom) {
+        list.scrollTop = list.scrollHeight;
+      }
     });
 }
 
@@ -132,6 +144,7 @@ logoutBtn.onclick = () => {
   localStorage.removeItem("username");
   location.reload();
 };
+
 
 
 
