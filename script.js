@@ -1,4 +1,4 @@
-// Firebase config
+// Firebase config (UNCHANGED)
 const firebaseConfig = {
   apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
   authDomain: "hello-website-d5502.firebaseapp.com",
@@ -11,15 +11,88 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-let userName = "Anonymous";
+let userName = null;
 
-// Page load
+/* =========================
+   🔄 LOADER
+========================= */
 window.onload = () => {
-  showNamePopup();
-  loadComments();
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+    checkSession();
+  }, 800);
 };
 
-// Add comment
+/* =========================
+   🔐 LOGIN SYSTEM
+========================= */
+
+function checkSession() {
+  const savedUser = localStorage.getItem("username");
+  if (savedUser) {
+    userName = savedUser;
+    showMain();
+  } else {
+    document.getElementById("loginBox").style.display = "block";
+  }
+}
+
+async function loginUser() {
+  const name = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value;
+  const msg = document.getElementById("loginMsg");
+
+  if (!name || !pass) {
+    msg.innerText = "Fill all fields";
+    return;
+  }
+
+  const userRef = db.collection("users").doc(name);
+  const doc = await userRef.get();
+
+  const hash = await sha256(pass);
+
+  if (doc.exists) {
+    // LOGIN
+    if (doc.data().password !== hash) {
+      msg.innerText = "Wrong password";
+      return;
+    }
+  } else {
+    // REGISTER
+    await userRef.set({
+      password: hash,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
+
+  localStorage.setItem("username", name);
+  userName = name;
+  showMain();
+}
+
+function showMain() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("mainContent").style.display = "block";
+  document.getElementById("welcomeUser").innerText = "Welcome, " + userName;
+  loadComments();
+}
+
+/* =========================
+   🔒 PASSWORD HASH
+========================= */
+async function sha256(text) {
+  const data = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/* =========================
+   💬 COMMENT SYSTEM (SAME)
+========================= */
+
 function addComment() {
   const input = document.getElementById("commentInput");
   const text = input.value.trim();
@@ -38,7 +111,6 @@ function addComment() {
   input.value = "";
 }
 
-// Load comments (REAL TIME)
 function loadComments() {
   const list = document.getElementById("commentList");
 
@@ -49,7 +121,6 @@ function loadComments() {
 
       snapshot.forEach(doc => {
         const data = doc.data();
-
         const li = document.createElement("li");
 
         const time = data.timestamp
@@ -58,41 +129,29 @@ function loadComments() {
 
         li.innerHTML = `
           <div><b>${data.name}</b>: ${data.text}</div>
-          <div style="font-size:12px; color:gray; margin-top:4px;">
-            ${time}
-          </div>
+          <div style="font-size:12px;color:gray;">${time}</div>
         `;
-
         list.appendChild(li);
       });
 
-      // auto scroll to bottom
       list.scrollTop = list.scrollHeight;
     });
 }
 
-// Name popup
-function showNamePopup() {
-  const popup = document.createElement("div");
-  popup.id = "namePopup";
-  popup.innerHTML = `
-    <h2>Enter Your Name</h2>
-    <input type="text" id="popupNameInput" placeholder="Your Name">
-    <br><br>
-    <button onclick="submitName()">Submit</button>
-  `;
-  document.body.appendChild(popup);
+/* =========================
+   🌙 DARK MODE
+========================= */
+
+const themeBtn = document.getElementById("themeToggle");
+
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
 }
 
-function submitName() {
-  const val = document.getElementById("popupNameInput").value.trim();
-  userName = val !== "" ? val : "Anonymous";
-  document.getElementById("namePopup").remove();
-}
-
-
-
-
-
-
-
+themeBtn.onclick = () => {
+  document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+};
