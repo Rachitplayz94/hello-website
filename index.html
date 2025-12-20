@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello 😄</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Hello Website</title>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- Google verification (jo kaam kar chuka hai) -->
+  <meta name="google-site-verification" content="brNnWcsI0g12e611wdU04XIZsKHT81-TnPxDnFemuQk" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
-    <h1>Hello 😄</h1>
 
-    <div class="comment-section">
-      <input type="text" id="commentInput" placeholder="Write a comment...">
+<body>
+
+  <div class="container">
+    <h1>Hello Website 💬</h1>
+
+    <!-- COMMENTS -->
+    <div id="comments" class="comments"></div>
+
+    <!-- INPUT AREA (NICHE) -->
+    <div class="input-area">
+      <input type="text" id="nameInput" placeholder="Your name" />
+      <input type="text" id="commentInput" placeholder="Write comment..." />
       <button onclick="addComment()">Submit</button>
-      <ul id="commentList"></ul>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
-
-
