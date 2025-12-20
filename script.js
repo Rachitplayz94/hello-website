@@ -99,9 +99,13 @@ function loadComments() {
     });
 }
 
-/* Hamburger Menu + Dark Mode + Logout */
+/* Hamburger Menu + Dark Mode + Logout + Overlay */
+const sideMenu = document.getElementById("sideMenu");
+const overlay = document.getElementById("overlay");
+
 function toggleMenu() {
-  document.getElementById("sideMenu").classList.toggle("show");
+  sideMenu.classList.toggle("show");
+  overlay.classList.toggle("show");
 }
 
 const menuDarkBtn = document.getElementById("menuDarkToggle");
@@ -116,7 +120,6 @@ menuDarkBtn.onclick = () => {
   }
 };
 
-// Initialize menu dark mode text
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark");
   menuDarkBtn.innerText = "☀️ Dark Mode";
@@ -129,6 +132,8 @@ logoutBtn.onclick = () => {
   localStorage.removeItem("username");
   location.reload();
 };
+
+
 
 
 
