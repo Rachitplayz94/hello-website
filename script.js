@@ -13,7 +13,6 @@ const db = firebase.firestore();
 
 window.userName = "Anonymous";
 
-// On page load
 window.onload = () => {
 
   // Developer name
@@ -32,7 +31,6 @@ window.onload = () => {
   // Add comment
   window.addComment = function () {
     const text = commentInput.value.trim();
-
     if (text === "") {
       alert("Please write a comment first!");
       return;
@@ -62,10 +60,7 @@ window.onload = () => {
           ? data.timestamp.toDate().toLocaleString()
           : "";
 
-        li.innerHTML = `
-          <span class="comment-name" style="color:${color}">${data.name}</span>: ${data.text}
-          <div class="comment-time">${time}</div>
-        `;
+        li.innerHTML = `<span class="comment-name" style="color:${color}">${data.name}</span>: ${data.text}<div class="comment-time">${time}</div>`;
         commentList.appendChild(li);
 
         // Auto-delete after 24 hours
@@ -99,6 +94,8 @@ function submitName() {
   window.userName = input !== "" ? input : "Anonymous";
   document.getElementById("namePopup").remove();
 }
+
+
 
 
 
