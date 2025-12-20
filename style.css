@@ -125,16 +125,6 @@ body.dark button:hover {
   background-color: #7777ff;
 }
 
-/* Theme button */
-.theme-btn {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-}
-
 /* Hamburger Menu */
 .menu-btn {
   position: fixed;
@@ -149,8 +139,8 @@ body.dark button:hover {
 .side-menu {
   position: fixed;
   top: 0;
-  left: -200px;
-  width: 200px;
+  left: -220px;
+  width: 220px;
   height: 100%;
   background-color: #ffffff;
   box-shadow: 2px 0 10px rgba(0,0,0,0.3);
@@ -186,6 +176,8 @@ body.dark .side-menu button {
 body.dark .side-menu button:hover {
   background-color: #7777ff;
 }
+
+
 
 
 
