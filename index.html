@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello Website 😄</title>
-
   <link rel="stylesheet" href="style.css" />
 
   <!-- Firebase SDK -->
@@ -27,8 +26,20 @@
   </div>
 
   <!-- Hamburger Menu -->
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <div class="menu-btn" onclick="toggleMenu()">
+    <div class="hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
   <div class="side-menu" id="sideMenu">
+    <div class="menu-items">
+      <p class="menu-item">Home</p>
+      <p class="menu-item">Issues</p>
+      <p class="menu-item">Pull Requests</p>
+    </div>
     <button id="menuDarkToggle">🌙 Dark Mode</button>
     <button id="logoutBtn">Logout</button>
   </div>
@@ -40,7 +51,6 @@
 
     <div class="comment-section">
       <ul id="commentList"></ul>
-
       <input type="text" id="commentInput" placeholder="Write a comment..." />
       <button onclick="addComment()">Submit</button>
     </div>
@@ -49,5 +59,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
