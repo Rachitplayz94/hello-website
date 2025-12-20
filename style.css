@@ -1,6 +1,72 @@
-/* =========================
-   🔄 LOADER
-========================= */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 40px;
+  color: #3333cc;
+}
+
+.comment-section {
+  margin-top: 20px;
+}
+
+input {
+  padding: 10px;
+  width: 70%;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #3333cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+button:hover {
+  background-color: #000099;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+li {
+  background-color: #f2f2f2;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+/* Loader */
 .loader {
   position: fixed;
   inset: 0;
@@ -14,9 +80,7 @@
   z-index: 2000;
 }
 
-/* =========================
-   🔐 LOGIN BOX
-========================= */
+/* Login box */
 .login-box {
   position: fixed;
   top: 50%;
@@ -29,48 +93,16 @@
   text-align: center;
   z-index: 1500;
   display: none;
-  width: 90%;
-  max-width: 320px;
 }
 
-.login-box h2 {
-  margin-bottom: 15px;
-  color: #3333cc;
-}
-
-.login-box input {
-  width: 90%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.login-box button {
-  margin-top: 15px;
-  width: 100%;
-}
-
-#loginMsg {
-  margin-top: 10px;
-  font-size: 14px;
-  color: red;
-}
-
-/* =========================
-   🌙 DARK MODE
-========================= */
+/* Dark mode */
 body.dark {
   background-color: #121212;
 }
 
 body.dark .container {
   background-color: #1e1e1e;
-  color: #ffffff;
-}
-
-body.dark h1 {
-  color: #66aaff;
+  color: white;
 }
 
 body.dark li {
@@ -86,15 +118,14 @@ body.dark .login-box input {
 
 body.dark button {
   background-color: #5555ff;
+  color: white;
 }
 
 body.dark button:hover {
   background-color: #7777ff;
 }
 
-/* =========================
-   🌙 THEME BUTTON
-========================= */
+/* Theme button */
 .theme-btn {
   position: fixed;
   top: 15px;
@@ -102,9 +133,8 @@ body.dark button:hover {
   border-radius: 50%;
   width: 45px;
   height: 45px;
-  font-size: 20px;
-  z-index: 1600;
 }
+
 
 
 
