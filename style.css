@@ -1,63 +1,133 @@
-const commentList = document.getElementById("commentList");
-const commentInput = document.getElementById("commentInput");
-let userName = "Anonymous";
-
-// Firebase
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "XXXX",
-  appId: "XXXX"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// Submit name popup
-function submitName() {
-  const input = document.getElementById("popupNameInput").value.trim();
-  userName = input !== "" ? input : "Anonymous";
-  document.getElementById("namePopup").remove();
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
 }
 
-// Add comment
-function addComment() {
-  const text = commentInput.value.trim();
-  if (!text) return alert("Write a comment first!");
-  
-  db.collection("comments").add({
-    name: userName,
-    text: text,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-  });
-
-  commentInput.value = "";
+#devName {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3333cc;
 }
 
-// Real-time listener
-db.collection("comments").orderBy("timestamp").onSnapshot(snapshot => {
-  commentList.innerHTML = "";
-  snapshot.forEach(doc => {
-    const data = doc.data();
-    const li = document.createElement("li");
-    const time = data.timestamp ? data.timestamp.toDate().toLocaleString() : "";
+.container {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
+}
 
-    li.innerHTML = `
-      <span class="comment-name">${data.name}</span>: ${data.text}
-      <div class="comment-time">${time}</div>
-    `;
-    commentList.appendChild(li);
+h1 {
+  font-size: 48px;
+  color: #3333cc;
+}
 
-    // Auto-delete 24hr
-    const now = new Date().getTime();
-    const msgTime = data.timestamp ? data.timestamp.toDate().getTime() : now;
-    if (now - msgTime > 24*60*60*1000) {
-      doc.ref.delete();
-    }
-  });
-  commentList.scrollTop = commentList.scrollHeight;
-});
+.comment-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 70%;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  order: 1;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #3333cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  order: 2;
+}
+
+button:hover {
+  background-color: #000099;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  order: 0;
+}
+
+li {
+  background-color: #f2f2f2;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.comment-name {
+  font-weight: bold;
+}
+
+.comment-time {
+  font-size: 11px;
+  color: gray;
+  margin-top: 3px;
+}
+
+/* Popup */
+#namePopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 1000;
+}
+
+#namePopup input {
+  padding: 10px;
+  width: 80%;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#namePopup button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #3333cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#namePopup button:hover {
+  background-color: #000099;
+}
 
 
