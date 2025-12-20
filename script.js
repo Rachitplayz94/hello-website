@@ -1,11 +1,8 @@
-// Firebase config (UNCHANGED)
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCqdmiq_qvhYb8luQbS3yWZ5yaUGEDXhwY",
   authDomain: "hello-website-d5502.firebaseapp.com",
   projectId: "hello-website-d5502",
-  storageBucket: "hello-website-d5502.appspot.com",
-  messagingSenderId: "887800679372",
-  appId: "1:887800679372:web:78c74ebdabb1e076966b69"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -13,9 +10,7 @@ const db = firebase.firestore();
 
 let userName = null;
 
-/* =========================
-   🔄 LOADER
-========================= */
+/* Loader */
 window.onload = () => {
   setTimeout(() => {
     document.getElementById("loader").style.display = "none";
@@ -23,14 +18,11 @@ window.onload = () => {
   }, 800);
 };
 
-/* =========================
-   🔐 LOGIN SYSTEM
-========================= */
-
+/* Login system */
 function checkSession() {
-  const savedUser = localStorage.getItem("username");
-  if (savedUser) {
-    userName = savedUser;
+  const saved = localStorage.getItem("username");
+  if (saved) {
+    userName = saved;
     showMain();
   } else {
     document.getElementById("loginBox").style.display = "block";
@@ -38,32 +30,26 @@ function checkSession() {
 }
 
 async function loginUser() {
-  const name = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value;
-  const msg = document.getElementById("loginMsg");
+  const name = username.value.trim();
+  const pass = password.value;
+  const msg = loginMsg;
 
   if (!name || !pass) {
     msg.innerText = "Fill all fields";
     return;
   }
 
-  const userRef = db.collection("users").doc(name);
-  const doc = await userRef.get();
-
+  const ref = db.collection("users").doc(name);
+  const doc = await ref.get();
   const hash = await sha256(pass);
 
   if (doc.exists) {
-    // LOGIN
     if (doc.data().password !== hash) {
       msg.innerText = "Wrong password";
       return;
     }
   } else {
-    // REGISTER
-    await userRef.set({
-      password: hash,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
+    await ref.set({ password: hash });
   }
 
   localStorage.setItem("username", name);
@@ -72,86 +58,70 @@ async function loginUser() {
 }
 
 function showMain() {
-  document.getElementById("loginBox").style.display = "none";
-  document.getElementById("mainContent").style.display = "block";
-  document.getElementById("welcomeUser").innerText = "Welcome, " + userName;
+  loginBox.style.display = "none";
+  mainContent.style.display = "block";
+  welcomeUser.innerText = "Welcome, " + userName;
   loadComments();
 }
 
-/* =========================
-   🔒 PASSWORD HASH
-========================= */
+/* Hash */
 async function sha256(text) {
   const data = new TextEncoder().encode(text);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,"0")).join("");
 }
 
-/* =========================
-   💬 COMMENT SYSTEM (SAME)
-========================= */
-
+/* Comments */
 function addComment() {
-  const input = document.getElementById("commentInput");
-  const text = input.value.trim();
-
-  if (text === "") {
-    alert("Write something first!");
-    return;
-  }
+  const text = commentInput.value.trim();
+  if (!text) return alert("Write something!");
 
   db.collection("comments").add({
     name: userName,
-    text: text,
+    text,
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   });
 
-  input.value = "";
+  commentInput.value = "";
 }
 
 function loadComments() {
-  const list = document.getElementById("commentList");
-
   db.collection("comments")
     .orderBy("timestamp")
-    .onSnapshot(snapshot => {
-      list.innerHTML = "";
-
-      snapshot.forEach(doc => {
-        const data = doc.data();
+    .onSnapshot(snap => {
+      commentList.innerHTML = "";
+      snap.forEach(doc => {
+        const d = doc.data();
         const li = document.createElement("li");
-
-        const time = data.timestamp
-          ? data.timestamp.toDate().toLocaleString()
-          : "";
-
-        li.innerHTML = `
-          <div><b>${data.name}</b>: ${data.text}</div>
-          <div style="font-size:12px;color:gray;">${time}</div>
-        `;
-        list.appendChild(li);
+        li.innerHTML = `<b>${d.name}</b>: ${d.text}`;
+        commentList.appendChild(li);
       });
-
-      list.scrollTop = list.scrollHeight;
     });
 }
 
 /* =========================
-   🌙 DARK MODE
+   🌙 DARK MODE FIX
 ========================= */
-
 const themeBtn = document.getElementById("themeToggle");
 
+// Load saved theme
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark");
+  themeBtn.innerText = "☀️";
+} else {
+  themeBtn.innerText = "🌙";
 }
 
+// Toggle theme
 themeBtn.onclick = () => {
   document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  );
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+    themeBtn.innerText = "☀️";
+  } else {
+    localStorage.setItem("theme", "light");
+    themeBtn.innerText = "🌙";
+  }
 };
+
+
