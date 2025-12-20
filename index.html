@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Hello Website</title>
 
-  <!-- Google verification (jo kaam kar chuka hai) -->
-  <meta name="google-site-verification" content="brNnWcsI0g12e611wdU04XIZsKHT81-TnPxDnFemuQk" />
+  <meta name="google-site-verification"
+    content="brNnWcsI0g12e611wdU04XIZsKHT81-TnPxDnFemuQk" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>Hello Website 💬</h1>
+  <div class="box">
+    <h2>Hello 😄</h2>
 
-    <!-- COMMENTS -->
+    <!-- INPUT UPAR -->
+    <input id="nameInput" placeholder="Your name">
+    <input id="commentInput" placeholder="Write comment">
+    <button onclick="addComment()">Submit</button>
+
+    <!-- COMMENTS NICHE -->
     <div id="comments" class="comments"></div>
-
-    <!-- INPUT AREA (NICHE) -->
-    <div class="input-area">
-      <input type="text" id="nameInput" placeholder="Your name" />
-      <input type="text" id="commentInput" placeholder="Write comment..." />
-      <button onclick="addComment()">Submit</button>
-    </div>
   </div>
 
   <script type="module" src="script.js"></script>
