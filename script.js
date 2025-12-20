@@ -101,38 +101,48 @@ function loadComments() {
       snapshot.forEach(doc => {
         const d = doc.data();
         const li = document.createElement("li");
-
-        // Calculate "time ago"
-        let timeText = "";
-        if (d.timestamp) {
-          const now = new Date();
-          const commentTime = d.timestamp.toDate();
-          const diffMs = now - commentTime;
-          const diffMin = Math.floor(diffMs / 60000);
-
-          if (diffMin < 60) {
-            timeText = `${diffMin} min ago`;
-          } else if (diffMin < 1440) {
-            const hr = Math.floor(diffMin / 60);
-            timeText = `${hr} hr ago`;
-          } else {
-            const days = Math.floor(diffMin / 1440);
-            timeText = `${days} day${days>1?'s':''} ago`;
-          }
-        }
-
-        li.innerHTML = `
-          <b>${d.name}</b>: ${d.text}
-          <div style="font-size:11px; color:gray; margin-top:2px;">${timeText}</div>
-        `;
+        li.dataset.timestamp = d.timestamp ? d.timestamp.toMillis() : null; // save timestamp
+        li.innerHTML = `<b>${d.name}</b>: ${d.text} <div class="comment-time" style="font-size:11px; color:gray; margin-top:2px;"></div>`;
         list.appendChild(li);
       });
 
       if (isAtBottom) {
         list.scrollTop = list.scrollHeight;
       }
+
+      updateCommentTimes(); // initial call
     });
 }
+
+// Function to update all comment "time ago"
+function updateCommentTimes() {
+  const comments = document.querySelectorAll("#commentList li");
+  if (!comments) return;
+
+  comments.forEach(li => {
+    const timestampMs = li.dataset.timestamp;
+    if (!timestampMs) return;
+    const timeDiv = li.querySelector(".comment-time");
+    const now = new Date();
+    const diffMs = now - new Date(Number(timestampMs));
+    const diffMin = Math.floor(diffMs / 60000);
+
+    if (diffMin < 1) {
+      timeDiv.innerText = ""; // 0–59 sec nothing
+    } else if (diffMin < 60) {
+      timeDiv.innerText = `${diffMin} min ago`;
+    } else if (diffMin < 1440) {
+      const hr = Math.floor(diffMin / 60);
+      timeDiv.innerText = `${hr} hr ago`;
+    } else {
+      const days = Math.floor(diffMin / 1440);
+      timeDiv.innerText = `${days} day${days>1?'s':''} ago`;
+    }
+  });
+}
+
+// Update every minute automatically
+setInterval(updateCommentTimes, 60000);
 
 /* Hamburger Menu + Dark Mode + Logout + Overlay */
 const sideMenu = document.getElementById("sideMenu");
@@ -168,27 +178,7 @@ logoutBtn.onclick = () => {
   location.reload();
 };
 
-/* Live Time Below Comment Section */
-function updateLiveTime() {
-  const liveTime = document.getElementById('liveTime');
-  if (!liveTime) return; // agar element nahi hai toh kuch nahi kare
 
-  setInterval(() => {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const displayHours = hours % 12 || 12;
-
-    liveTime.textContent = `Current Time: ${displayHours}:${minutes}:${seconds} ${ampm}`;
-  }, 1000);
-}
-
-// Call live time update after main content is loaded
-window.addEventListener('load', () => {
-  updateLiveTime();
-});
 
 
 
