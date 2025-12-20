@@ -7,6 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  transition: background 0.3s;
 }
 
 .container {
@@ -17,6 +18,7 @@ body {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   width: 90%;
   max-width: 500px;
+  transition: filter 0.3s;
 }
 
 h1 {
@@ -34,6 +36,7 @@ input {
   margin-top: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  transition: background 0.3s, color 0.3s;
 }
 
 button {
@@ -44,6 +47,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 5px;
+  transition: background 0.3s;
 }
 
 button:hover {
@@ -64,6 +68,7 @@ li {
   padding: 10px;
   border-radius: 5px;
   text-align: left;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* Loader */
@@ -93,6 +98,7 @@ li {
   text-align: center;
   z-index: 1500;
   display: none;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* Dark mode */
@@ -107,6 +113,7 @@ body.dark .container {
 
 body.dark li {
   background-color: #2a2a2a;
+  color: white;
 }
 
 body.dark input,
@@ -135,38 +142,44 @@ body.dark button:hover {
 }
 
 .hamburger-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
   background-color: #f0f8ff;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background 0.3s;
 }
 
 .hamburger-icon span {
   display: block;
-  height: 3px;
+  height: 4px;
   background-color: #3333cc;
   border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.hamburger-icon:hover {
+  background-color: #e0e8ff;
 }
 
 /* Side Menu */
 .side-menu {
   position: fixed;
   top: 0;
-  left: -240px; /* hidden initially */
+  left: -300px; /* completely hidden initially */
   width: 240px;
   height: 100%;
-  background-color: #ffffff; /* clean white */
+  background-color: #ffffff;
   box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-  padding: 60px 20px;
+  padding: 80px 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transition: left 0.3s;
+  transition: left 0.4s;
   z-index: 1600;
 }
 
@@ -179,8 +192,13 @@ body.dark button:hover {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background-color: #3333cc; /* only buttons colored */
+  background-color: #3333cc;
   color: white;
+  transition: background 0.3s;
+}
+
+.side-menu button:hover {
+  background-color: #000099;
 }
 
 body.dark .side-menu {
@@ -194,6 +212,25 @@ body.dark .side-menu button {
 body.dark .side-menu button:hover {
   background-color: #7777ff;
 }
+
+/* Overlay blur */
+.overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1550;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
 
 
 
