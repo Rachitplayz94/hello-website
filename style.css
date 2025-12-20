@@ -60,6 +60,7 @@ ul {
   margin-top: 20px;
   max-height: 250px;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 li {
@@ -170,7 +171,7 @@ body.dark button:hover {
 .side-menu {
   position: fixed;
   top: 0;
-  left: -300px; /* completely hidden initially */
+  left: -300px;
   width: 240px;
   height: 100%;
   background-color: #ffffff;
@@ -229,6 +230,8 @@ body.dark .side-menu button:hover {
   opacity: 1;
   visibility: visible;
 }
+
+
 
 
 
